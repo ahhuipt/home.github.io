@@ -40,8 +40,9 @@ jobs:
     - name: Commit and Push changes
       uses: EndBug/add-and-commit@v9
       with:
-        add: '.'
+        add: './assets/json/images.json'
         message: '[CI] Auto-update images.json'
-        pull: 'false'
+        pull: 'true'
+        branch: 'gh-pages' # <-- 新增这一行
       env:
         GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
