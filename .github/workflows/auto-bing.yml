@@ -51,8 +51,6 @@ jobs:
         message: '[CI] Auto-update Bing images.json'
         # 在推送前先拉取最新更改，避免冲突
         pull: 'true'
-        # 明确指定要推送到的分支，避免歧义
-        branch: 'gh-pages'
       env:
         # 将您的 GH_TOKEN 秘密注入为 GITHUB_TOKEN 环境变量
         GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
