@@ -1,9 +1,14 @@
 name: Auto Update Bing Images CI
 
+# 定义触发工作流的事件
 on:
+  # 手动在 GitHub Actions 页面上点击 "Run workflow" 触发
   workflow_dispatch:
+  # 每天凌晨1点 (UTC时间) 自动运行一次
   schedule:
     - cron: "0 1 * * *"
+  # 当向 gh-pages 分支推送代码或创建 Pull Request 时也触发
+  # 这确保了即使手动修改了 gh-pages 分支，也能自动更新图片
   push:
     branches: [ gh-pages ]
   pull_request:
@@ -11,38 +16,43 @@ on:
 
 jobs:
   build:
+    # 指定运行环境为最新的 Ubuntu
     runs-on: ubuntu-latest
+
     steps:
-    # checkout
-    - name: checkout
+    # 第一步：检出代码
+    - name: Checkout repository
       uses: actions/checkout@v4
       with:
-        persist-credentials: false # 避免凭据冲突
-        fetch-depth: 0 # 确保有完整的提交历史
+        # 关键：允许后续步骤推送更改
+        persist-credentials: false
+        # 获取完整的 Git 历史记录，确保可以进行推送
+        fetch-depth: 0
 
-    # setup nodejs and cache dependencies
-    - name: Use Node.js
+    # 第二步：安装 Node.js 运行环境
+    - name: Setup Node.js
       uses: actions/setup-node@v4
       with:
+        # 指定 Node.js 版本
         node-version: '20.x'
 
-    # Run the script to update images.json
+    # 第三步：运行 bing.js 脚本，获取最新的壁纸 URL 并写入 images.json
     - name: Update Bing images
       run: node ./assets/js/bing.js
 
-    # commit
-    - name: commit file
-      run: |
-        git config --local user.email 'github-actions[bot]@users.noreply.github.com'
-        git config --local user.name 'github-actions[bot]'
-        git diff --exit-code || git add . && git commit -am '[bot] update images.json' --allow-empty
-    # push   
+    # 第四步：将更改提交并推送到远程仓库
+    # 使用一个功能完整的 Action 来处理 add, commit, 和 push
     - name: Commit and Push changes
       uses: EndBug/add-and-commit@v9
       with:
+        # 指定要添加到暂存区的文件（推荐只添加特定文件，而不是 .）
         add: './assets/json/images.json'
-        message: '[CI] Auto-update images.json'
+        # 提交信息
+        message: '[CI] Auto-update Bing images.json'
+        # 在推送前先拉取最新更改，避免冲突
         pull: 'true'
-        branch: 'gh-pages' # <-- 新增这一行
+        # 明确指定要推送到的分支，避免歧义
+        branch: 'gh-pages'
       env:
+        # 将您的 GH_TOKEN 秘密注入为 GITHUB_TOKEN 环境变量
         GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
