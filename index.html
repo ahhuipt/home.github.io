@@ -16,7 +16,8 @@
     <link rel="apple-touch-icon" href="https://unpkg.com/dmego-home-page@latest/apple-touch-icon.png">
     <link rel="icon" href="https://unpkg.com/dmego-home-page@latest/favicon.ico">
 
-    <link rel="stylesheet" href="//at.alicdn.com/t/c/font_4499453_jiyde7r7n6f.css"> <!-- 自定义加的：阿里巴巴矢量图 -->
+    <!-- <link rel="stylesheet" href="//at.alicdn.com/t/c/font_4499453_jiyde7r7n6f.css">  -->
+    <link rel="preload" href="http://at.alicdn.com/t/c/font_4499453_jiyde7r7n6f.woff2" as="font" type="font/woff2" crossorigin>   <!-- 自定义加的：阿里巴巴矢量图 -->
     <!-- <link rel="stylesheet" href="/assets/css/footer-style.css">    自定义加的 -->
 
 </head>
@@ -167,7 +168,20 @@
     </header>
 
     <script type="text/javascript" src="https://unpkg.com/dmego-home-page@latest/assets/js/main.js"></script>
-    <script type="text/javascript" src="./assets/json/images.json?cb=getBingImages"></script>   
+    <script type="text/javascript">
+        // 在页面加载完成后执行
+        window.onload = function () {
+            // 使用 fetch 获取 images.json，并设置 no-cache
+            fetch('./assets/json/images.json', { cache: 'no-cache' })
+                .then(response => response.text())
+                .then(data => {
+                    // 执行 JSONP 调用
+                    eval(data); // 注意：eval 有安全风险，仅适用于信任的来源
+                })
+                .catch(error => console.error('Error loading images.json:', error));
+        };
+    </script>
+    <!-- <script type="text/javascript" src="./assets/json/images.json?cb=getBingImages"></script>    -->
     
     <!--给WordPress网站添加鼠标点击爆炸五颜六色特效-->
     <canvas class="fireworks" style="position:fixed;left:0;top:0;z-index:99999999;pointer-events:none;"></canvas>
