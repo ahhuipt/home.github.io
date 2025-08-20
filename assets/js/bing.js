@@ -50,6 +50,8 @@ function updateBingImages() {
             console.error('❌ Error writing file:', err);
             process.exit(1);
           }
+          // 添加这行，打印实际写入的内容
+          console.log('📝 Attempting to write:', jsonpStr);
           console.log('✅ JSON data saved successfully:', OUTPUT_PATH);
         });
 
