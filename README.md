@@ -7,7 +7,7 @@
 
 一个基于 GitHub Pages 的个人主页，每日自动更新 Bing 高清壁纸。
 
-![home](./README.assets/home.gif)
+![home](./assets/img/home.gif)
 
 一个简洁、美观的个人主页，灵感源自 [dmego](https://github.com/dmego) 的 [dmego-home-page](https://github.com/dmego/dmego-home-page) 项目。通过 GitHub Actions 实现每日自动更新必应（Bing）高清壁纸。
 
