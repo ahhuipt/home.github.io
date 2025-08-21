@@ -18,35 +18,6 @@
 - ⚡ **轻量高效**：移除了 jQuery 依赖，使用原生 JavaScript，加载更快。
 - 🎨 **鼠标特效**：集成鼠标点击爆炸五颜六色特效，增加互动乐趣。
 
-## ⚙️ GitHub Actions 配置说明
-
-- 利用 `Github Action` 提交代码需要一个 `GitHub API` 令牌, 可以在 [Create Tokens](https://github.com/settings/tokens) 这个地址，点击 `Generate new token` 按钮来创建
-  - `Expiration` 过期时间设置为 `No expiration`
-  - `Select scopes` 勾选 `repo`
-  - 点击 `Generate Token` 生成
-- 在仓库的 `Settings` ——>`Secrets` 功能栏中，点击 `New repository secrets` 按钮
-  -  在 `Name` 框中填写 `GH_TOKEN`
-  -  在 `Secrets` 栏中填写第一步生成的 `Token` 值
-- 详细配置步骤图可以参考《[GitHub Action 配置详细步骤](./ActionNotes.md)》文档
-
-### 自动化工作流
-
-```mermaid
-graph TD
-    A[GitHub Action 每日定时运行] --> B[执行 bing.js 脚本]
-    B --> C[从 cn.bing.com API 获取最新壁纸]
-    C --> D[生成或更新 assets/json/images.json]
-    D --> E[提交并推送到 gh-pages 分支]
-    E --> F[GitHub Pages 自动部署]
-    F --> G[您的网页加载最新壁纸]
-```
-
-1. **定时触发**：GitHub Actions 每天在设定时间自动触发。
-2. **获取数据**：`bing.js` 脚本调用 Bing API，获取包含最近 8 天壁纸 URL 的 JSON 数据。
-3. **生成文件**：脚本将数据转换为 `getBingImages([...])` 格式的 JSONP，并写入 `assets/json/images.json` 文件。
-4. **自动部署**：工作流将更新后的 `images.json` 文件提交并推送到 `gh-pages` 分支。
-5. **网页加载**：您的 `index.html` 通过 `<script>` 标签加载 `images.json`，执行 `getBingImages` 函数，从而设置最新的背景图片。
-
 ## 📦 文件结构
 
 ```markdown
@@ -74,9 +45,6 @@ graph TD
 │   │   │   ├─📄 action-4.png         # 动作图标 4
 │   │   │   └─📄 logo.jpg             # 动作Logo
 │   │   ├─📄 home.gif                 # 首页动画GIF
-│   │   ├─📄 home.jpg                 # 首页背景图
-│   │   ├─📄 logo2.jpg                # Logo图片 2
-│   │   ├─📄 logo3.jpg                # Logo图片 3
 │   │   └─📄 logo.png                 # 主要Logo图片
 │   ├─📁 js/
 │   │   ├─📄 bing.js                  # 获取每日Bing壁纸URL的Node.js脚本
@@ -95,6 +63,36 @@ graph TD
 ├─📄 package.json                   # Node.js项目配置文件
 └─📄 README.md                      # 项目说明文档
 ```
+
+## ⚙️ GitHub Actions 配置说明
+
+- 利用 `Github Action` 提交代码需要一个 `GitHub API` 令牌, 可以在 [Create Tokens](https://github.com/settings/tokens) 这个地址，点击 `Generate new token` 按钮来创建
+  - `Expiration` 过期时间设置为 `No expiration`
+  - `Select scopes` 勾选 `repo`
+  - 点击 `Generate Token` 生成
+- 在仓库的 `Settings` ——>`Secrets` 功能栏中，点击 `New repository secrets` 按钮
+  -  在 `Name` 框中填写 `GH_TOKEN`
+  -  在 `Secrets` 栏中填写第一步生成的 `Token` 值
+- 详细配置步骤图可以参考《[GitHub Action 配置详细步骤](./ActionNotes.md)》文档
+
+## ⏱️ 自动化工作流
+
+```mermaid
+graph TD
+    A[GitHub Action 每日定时运行] --> B[执行 bing.js 脚本]
+    B --> C[从 cn.bing.com API 获取最新壁纸]
+    C --> D[生成或更新 assets/json/images.json]
+    D --> E[提交并推送到 gh-pages 分支]
+    E --> F[GitHub Pages 自动部署]
+    F --> G[您的网页加载最新壁纸]
+```
+
+1. **定时触发**：GitHub Actions 每天在设定时间自动触发。
+2. **获取数据**：`bing.js` 脚本调用 Bing API，获取包含最近 8 天壁纸 URL 的 JSON 数据。
+3. **生成文件**：脚本将数据转换为 `getBingImages([...])` 格式的 JSONP，并写入 `assets/json/images.json` 文件。
+4. **自动部署**：工作流将更新后的 `images.json` 文件提交并推送到 `gh-pages` 分支。
+5. **网页加载**：您的 `index.html` 通过 `<script>` 标签加载 `images.json`，执行 `getBingImages` 函数，从而设置最新的背景图片。
+
 
 ## 📝 更新记录
 
