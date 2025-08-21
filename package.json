@@ -1,6 +1,6 @@
 {
   "name": "@wojackop/homepage",
-  "version": "1.0.5",
+  "version": "1.0.7",
   "description": "A personal homepage for AhHui, featuring daily Bing wallpapers and dynamic effects.",
   "main": "index.html",
   "scripts": {
@@ -21,13 +21,12 @@
   "bugs": {
     "url": "https://github.com/wojackop/home.github.io/issues"
   },
-  "homepage": "https://github.com/wojackop/home.github.io#readme",
+  "homepage": "https://wojackop.github.io/home.github.io/",
   "files": [
     "assets/css/",
     "assets/fonts/",
     "assets/img/",
     "assets/js/",
-    "index.html",
     "favicon.ico",
     "apple-touch-icon.png"
   ]

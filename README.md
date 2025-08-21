@@ -1,7 +1,7 @@
-[![Version](https://img.shields.io/github/package-json/v/dmego/home.github.io)](https://www.npmjs.com/package/dmego-home-page)
-[![Website](https://img.shields.io/website-up-down-green-red/http/i.dmego.cn.svg)](http://i.dmego.cn/)
-[![License](https://img.shields.io/github/license/dmego/home.github.io.svg)](/LICENSE)
-[![Say Thanks](https://img.shields.io/badge/Say-Thanks!-1EAEDB.svg)](https://saythanks.io/to/dmego)
+[![Version](https://img.shields.io/github/package-json/v/wojackop/home.github.io)](https://www.npmjs.com/package/@wojackop/homepage)
+[![Website](https://img.shields.io/website-up-down-green-red/https/home.gyhwd.top.svg)](https://wojackop.github.io/home.github.io/)
+[![License](https://img.shields.io/github/license/wojackop/home.github.io.svg)](/LICENSE)
+[![Say Thanks](https://img.shields.io/badge/Say-Thanks!-1EAEDB.svg)](https://saythanks.io/to/wojackop)
 
 ## 个人主页项目
 
@@ -21,7 +21,6 @@
 ## 📦 文件结构
 
 ```markdown
-.
 ├─📁 .github/
 │   └─📁 workflows/
 │       └─📄 auto-bing.yml             # GitHub Actions 定时任务配置（每天凌晨1点更新Bing壁纸）
@@ -59,7 +58,9 @@
 └─📄 README.md                      # 项目说明文档
 ```
 
-## ⚙️ GitHub Actions 配置说明
+## 🎉 配置教程
+
+### ⚙️ GitHub Actions 配置
 
 - 利用 `Github Action` 提交代码需要一个 `GitHub API` 令牌, 可以在 [Create Tokens](https://github.com/settings/tokens) 这个地址，点击 `Generate new token` 按钮来创建
   - `Expiration` 过期时间设置为 `No expiration`
@@ -69,6 +70,86 @@
   -  在 `Name` 框中填写 `GH_TOKEN`
   -  在 `Secrets` 栏中填写第一步生成的 `Token` 值
 - 详细配置步骤图可以参考《[GitHub Action 配置详细步骤](./ActionNotes.md)》文档
+
+### 🎀 NPM 包发布与使用笔记
+
+将网站的静态资源（CSS, JS, 图片, 字体等）打包发布为一个 NPM 包，使用 UNPKG 作为资源文件的 CDN。以下是详细步骤：
+
+1. **项目配置**
+
+首先在 [npmjs.com ](https://www.npmjs.com/?spm=a2ty_o01.29997173.0.0.274d5171Jsoi6V)注册一个账号，在您的项目根目录下创建或修改 `package.json` 文件。
+
+```json
+{
+  "name": "@您的GitHub用户名/包名",
+  "version": "1.0.0",
+  "description": "A personal homepage theme for your name.",
+  "main": "index.html",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/您的GitHub用户名/您的仓库名.git"
+  },
+  "keywords": ["personal", "homepage", "theme"],
+  "author": "您的名字",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/您的GitHub用户名/您的仓库名/issues"
+  },
+  "homepage": "https://您的自定义域名",
+  "files": [
+    "assets/css/",
+    "assets/fonts/",
+    "assets/img/",
+    "assets/js/"
+  ]
+}
+```
+
+**关键点**：
+
+- **`name`**: 建议使用作用域格式 `@username/package-name`。
+- **`files`**: 精确列出要发布的静态资源文件夹。
+
+
+2.  发布 NPM 包流程
+
+```bash
+# 1️⃣ 检查当前 npm 源
+npm config get registry 
+
+# 2️⃣ 切换到官方 npm 源（发布必须在此源下进行）
+npm config set registry https://registry.npmjs.org
+
+# 3️⃣ 登录您的 npm 账号
+# 系统会提示您在浏览器中登录，或直接在终端输入用户名、密码和邮箱
+npm login
+
+# 4️⃣ 发布包（作用域包必须指定 --access public）
+npm publish --access public
+
+# 5️⃣ 【重要】发布成功后，切换回国内镜像源以加速日常开发
+npm config set registry https://mirrors.huaweicloud.com/repository/npm/
+# 或使用淘宝镜像：https://registry.npmmirror.com
+```
+
+**常见错误**：
+
+- `E402 Payment Required`: 忘记添加 `--access public`。
+- `E409 Conflict`: 瞬时错误，稍等片刻后重试 `npm publish --access public` 即可。
+- `400 Bad Request`: 包名包含大写字母，需改为全小写。
+
+**其他命令：**
+
+```bash
+npm config list -l          # 用于查看当前 npm 的所有配置项及其详细信息，包括默认值和用户自定义的设置。
+npm cache clean --force     # 清理 npm 缓存
+```
+
+3. **在网页中使用 (UNPKG)**
+
+发布成功后，您可以通过 UNPKG 这个 CDN 服务，在您的 `index.html` 中引用这些资源。
+
+参考：[UNPKG](https://unpkg.com/)
 
 ## ⏱️ 自动化工作流
 
@@ -103,6 +184,6 @@ graph TD
 - **头像样式**: 参考了 [北岛向南的小屋 ](https://javef.github.io/)的头像样式。
 - **核心机制**: 借鉴并改进了 [dmego ](https://github.com/dmego)的 `dmego-home-page` 项目。
 
-## 📄 许可证
+## 📜 许可证
 
-本项目基于 [MIT 许可证 ](https://chat.qwen.ai/c/LICENSE)开源，欢迎学习和使用。
+本项目基于 [MIT 许可证 ](https://chat.qwen.ai/c/LICENSE)开源，壁纸版权归 Bing 及原作者所有，仅供学习与个人使用，严禁商用。

@@ -28,22 +28,33 @@ var iUp = (function () {
 })();
 
 function getBingImages(imgUrls) {
-	/**
-	 * 获取Bing壁纸
-	 * 先使用 GitHub Action 每天获取 Bing 壁纸 URL 并更新 images.json 文件
-	 * 然后读取 images.json 文件中的数据
-	 */
-	var indexName = "bing-image-index";
-	var index = sessionStorage.getItem(indexName);
-	var panel = document.querySelector('#panel');
-	if (isNaN(index) || index == 7) index = 0;
-	else index++;
-	var imgUrl = imgUrls[index];
-	var url = "https://www.cn.bing.com" + imgUrl;
-	panel.style.background = "url('" + url + "') center center no-repeat #666";
-	panel.style.backgroundSize = "cover";
-	sessionStorage.setItem(indexName, index);
+  /**
+   * 获取Bing壁纸
+   * 使用 GitHub Action 每天更新 images.json
+   * 页面刷新时切换下一张背景图
+   */
+  const indexName = "bing-image-index";
+  let index = sessionStorage.getItem(indexName);
+
+  // 初始化或递增索引
+  if (isNaN(index) || index >= imgUrls.length - 1) {
+    index = 0;
+  } else {
+    index++;
+  }
+   // 获取当前要显示的图片URL
+  const imageUrl = imgUrls[index];
+  const fullUrl = `https://www.cn.bing.com${imageUrl}`;
+  // 设置背景（根据你的 HTML 选择正确的选择器）
+  const backgroundElement = document.getElementById('BackgroundArea') || document.getElementById('panel');
+  if (backgroundElement) {
+    backgroundElement.style.background = `url('${fullUrl}') center center no-repeat #666`;
+    backgroundElement.style.backgroundSize = "cover";
+  }
+  // 保存索引
+  sessionStorage.setItem(indexName, index);
 }
+
 
 // 自定义自己的背景图片
 function displayMyImage() {
