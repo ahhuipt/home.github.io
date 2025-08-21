@@ -39,11 +39,6 @@
 │   │   └─📄 d571b52b60b5617399ce8eab62bf3eb3.woff2   # 字体文件 (WOFF2格式，压缩率更高)
 │   ├─📁 img/
 │   │   ├─📁 action/
-│   │   │   ├─📄 action-1.png         # 动作图标 1
-│   │   │   ├─📄 action-2.png         # 动作图标 2
-│   │   │   ├─📄 action-3.png         # 动作图标 3
-│   │   │   ├─📄 action-4.png         # 动作图标 4
-│   │   │   └─📄 logo.jpg             # 动作Logo
 │   │   ├─📄 home.gif                 # 首页动画GIF
 │   │   └─📄 logo.png                 # 主要Logo图片
 │   ├─📁 js/
