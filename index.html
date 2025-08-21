@@ -173,8 +173,7 @@
 
     <!-- 无需 type="text/javascript"（HTML5 默认） -->
     <script src="https://unpkg.com/@wojackop/homepage@latest/assets/js/main.js"></script>
-
-    <!-- 设置背景图 -->
+    <script src="./assets/json/images.json?cb=getBingImages"></script>              <!-- 设置背景图 -->
     <!-- <script>
         // 确保 getBingImages 函数已定义（在 main.js 中）
         window.addEventListener('load', function () {
@@ -188,7 +187,6 @@
             document.head.appendChild(script);
             });
             </script> -->
-    <script src="./assets/json/images.json?cb=getBingImages"></script>
 
     <!-- 添加鼠标点击爆炸五颜六色特效 -->
     <canvas class="fireworks" style="position:fixed;left:0;top:0;z-index:999;pointer-events:none;"></canvas>
