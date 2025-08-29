@@ -55,7 +55,6 @@ jobs:
         else
           echo "No changes to images.json. Nothing to commit."
         fi
-
     # 6. 推送更改到远程仓库
     # 使用 x-access-token 方式，直接将 GH_TOKEN 作为密码，避免凭据冲突
     - name: Push changes to gh-pages
